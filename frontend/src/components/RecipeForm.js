@@ -66,6 +66,7 @@ function RecipeForm() {
       
       console.log("New recipe added", json);
       dispatch({ type: "CREATE_RECIPE", payload: json });
+      window.location.reload();
     } catch (error) {
       console.error("Error submitting recipe:", error);
       setError("Failed to submit. Please try again later.");
