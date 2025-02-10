@@ -1,13 +1,18 @@
 import { createContext, useReducer } from 'react';
-
+ 
 export const RecipesContext = createContext();
-
+ 
 const recipesReducer = (state, action) => {
   switch (action.type) {
     case 'SET_RECIPES':
       return {
         recipes: action.payload,
       };
+    case 'CREATE_RECIPE':
+      return {
+        recipes: [...state.recipes, action.payload], // Adds the new recipe to the list
+      };
+ 
     case 'UPDATE_RECIPE':
       return {
         recipes: state.recipes.map((recipe) =>
@@ -30,12 +35,12 @@ const recipesReducer = (state, action) => {
       return state;
   }
 };
-
+ 
 export const RecipesContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(recipesReducer, {
     recipes: [],
   });
-
+ 
   return (
     <RecipesContext.Provider value={{ ...state, dispatch }}>
       {children}
